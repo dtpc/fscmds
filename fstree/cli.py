@@ -14,7 +14,7 @@ from treelib import Tree
     "level",
     metavar="level",
     type=int,
-    default=None,
+    default=100,
     help="Descend only level directories deep.",
 )
 def main(uri, level):
@@ -22,7 +22,7 @@ def main(uri, level):
     root = PurePath(root)
     t = Tree()
 
-    def walk(path, parent=None, level=100):
+    def walk(path, level, parent=None):
         t.create_node(path.name, str(path), parent=parent)
         if level and fs.isdir(path):
             for s in sorted(fs.ls(path)):
