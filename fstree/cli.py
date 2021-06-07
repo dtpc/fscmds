@@ -25,11 +25,12 @@ def main(uri, level):
     def walk(path, level, parent=None):
         t.create_node(path.name, str(path), parent=parent)
         if level and fs.isdir(path):
-            for s in sorted(fs.ls(path)):
-                walk(PurePath(s), parent=str(path), level=level - 1)
+            contents = sorted(map(PurePath, fs.ls(path)))
+            for s in contents:
+                if s != path:
+                    walk(s, parent=str(path), level=level - 1)
 
     walk(root, level=level)
-
     t.show()
 
 
