@@ -19,7 +19,6 @@ from treelib import Tree
 )
 def cli(uri, level):
     fs, root = url_to_fs(uri)
-    root = PurePath(root)
     t = Tree()
 
     def walk(path: str, level: int, parent: str = None) -> None:
