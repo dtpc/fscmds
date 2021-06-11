@@ -3,6 +3,7 @@
 import click
 from fsspec.core import url_to_fs
 
+
 @click.command()
 @click.argument("path", type=str)
 def cli(path):
@@ -10,7 +11,8 @@ def cli(path):
     if fs.isdir(root):
         click.echo(f"{path} is a directory")
     else:
-        click.echo_via_pager(fs[root])
+        with fs.open(root, "r") as f:
+            click.echo_via_pager(f.read())
 
 
 if __name__ == "__main__":
