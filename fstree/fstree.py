@@ -17,22 +17,22 @@ from treelib import Tree
     default=100,
     help="Descend only level directories deep.",
 )
-def main(uri, level):
+def cli(uri, level):
     fs, root = url_to_fs(uri)
     root = PurePath(root)
     t = Tree()
 
-    def walk(path, level, parent=None):
-        t.create_node(path.name, str(path), parent=parent)
+    def walk(path: str, level: int, parent: str = None) -> None:
+        name = PurePath(path).name
+        t.create_node(name, path, parent=parent)
         if level and fs.isdir(path):
-            contents = sorted(map(PurePath, fs.ls(path)))
-            for s in contents:
+            for s in sorted(fs.ls(path)):
                 if s != path:
-                    walk(s, parent=str(path), level=level - 1)
+                    walk(s, parent=path, level=level - 1)
 
     walk(root, level=level)
     t.show()
 
 
 if __name__ == "__main__":
-    main()
+    cli()

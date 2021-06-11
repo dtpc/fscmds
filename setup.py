@@ -25,7 +25,8 @@ setup(
     tests_require=tests_require,
     entry_points={
         "console_scripts": [
-            "fstree = fstree.cli:main",
+            "fstree = fstree.fstree:cli",
+            "fsless = fstree.fsless:cli",
         ],
     },
 )
