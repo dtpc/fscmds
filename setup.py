@@ -21,7 +21,10 @@ setup(
         "fsspec",
         "treelib",
     ],
-    extras_require={"test": tests_require},
+    extras_require={
+        "test": tests_require,
+        "s3": ["s3fs"],
+    },
     tests_require=tests_require,
     entry_points={
         "console_scripts": [
