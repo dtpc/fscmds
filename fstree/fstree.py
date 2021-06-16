@@ -3,12 +3,13 @@
 from pathlib import PurePath
 
 import click
-from fsspec.core import url_to_fs
 from treelib import Tree
+
+from .utils import FSPath
 
 
 @click.command()
-@click.argument("uri")
+@click.argument("fspath", metavar="PATH", type=FSPath(exists=True, file_okay=False))
 @click.option(
     "-L",
     "level",
@@ -17,8 +18,9 @@ from treelib import Tree
     default=100,
     help="Descend only level directories deep.",
 )
-def cli(uri, level):
-    fs, root = url_to_fs(uri)
+def cli(fspath, level):
+    """List contents of directories in a tree-like format."""
+    fs, root = fspath
     t = Tree()
 
     def walk(path: str, level: int, parent: str = None) -> None:
