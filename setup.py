@@ -9,10 +9,10 @@ tests_require = [
 
 
 setup(
-    name="fstree",
+    name="fscmds",
     author="dtpc",
     license="MIT License",
-    description="CLI tool to print a filesystem tree",
+    description="Simple CLI tools for local/remote filesystems",
     python_requires=">=3.8.0",
     packages=find_packages(exclude=("tests")),
     setup_requires=["setuptools_scm"],
@@ -23,13 +23,13 @@ setup(
     ],
     extras_require={
         "test": tests_require,
-        "s3": ["s3fs"],
+        "s3": ["s3fs[boto3]"],
     },
     tests_require=tests_require,
     entry_points={
         "console_scripts": [
-            "fstree = fstree.fstree:cli",
-            "fsless = fstree.fsless:cli",
+            "fstree = fscmds.fstree:cli",
+            "fsless = fscmds.fsless:cli",
         ],
     },
 )
